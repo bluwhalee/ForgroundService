@@ -1,7 +1,11 @@
 package com.example.forgroundservice
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -22,7 +26,19 @@ class RunningService: android.app.Service() {
         return super.onStartCommand(intent, flags, startId)
     }
     private fun start(){
-        val notification = NotificationCompat.Builder(this, "running-channel")
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            val channel = NotificationChannel(
+                "running_channel",
+                "Running Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+
+            val notificationManager= getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification = NotificationCompat.Builder(this, "running_channel")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Run is active")
             .setContentText("service running")

@@ -25,14 +25,6 @@ class MainActivity : AppCompatActivity() {
             )
 
         }
-        val channel = NotificationChannel(
-            "running_channel",
-            "Running Notifications",
-            NotificationManager.IMPORTANCE_DEFAULT
-        )
-
-        val notificationManager= getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.button).setOnClickListener {
             Log.d("MyApp", "111111")
